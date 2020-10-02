@@ -25,3 +25,11 @@ https://docs.microsoft.com/en-us/windows/win32/termserv/detecting-the-terminal-s
 
 
 Good for understanding Remote Desktop Services : https://docs.microsoft.com/en-us/windows/win32/termserv/connection-sequence
+
+
+
+The RDS api enables me to enumerate and manage remote desktop session Host servers, client sessions, and processes.
+https://docs.microsoft.com/en-us/windows/win32/termserv/terminal-services-administration
+
+
+

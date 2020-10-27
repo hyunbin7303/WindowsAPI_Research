@@ -13,11 +13,10 @@ My own research project related to Windows API.
 source : https://docs.microsoft.com/en-us/windows/win32/wes/accessing-remote-computers
 
 
-Try this one : https://www.xspdf.com/resolution/52801177.html
+Try this one : 
 https://github.com/FreeRDP/FreeRDP/tree/master/client/Windows
 https://docs.microsoft.com/en-us/windows/win32/api/_rdp/
 
-https://www.xspdf.com/resolution/52801177.html
 
 
 https://docs.microsoft.com/en-us/windows/win32/termserv/detecting-the-terminal-services-environment

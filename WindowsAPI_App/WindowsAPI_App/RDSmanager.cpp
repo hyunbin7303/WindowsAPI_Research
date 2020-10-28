@@ -69,3 +69,30 @@ cleanup:
     if (hPublishers)
         EvtClose(hPublishers);
 }
+
+BOOL RDSmanager::IsRemote(DWORD pid, DWORD* exitTag, DWORD* lastErrorCode) {
+    DWORD sessionId;
+    if (FALSE == ProcessIdToSessionId(pid, &sessionId)) {
+        *exitTag = 1;
+        *lastErrorCode = GetLastError();
+        return FALSE;
+    }
+
+    OSVERSIONINFOW osvi;
+    ZeroMemory(&osvi, sizeof(OSVERSIONINFOW));
+    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOW);
+
+    GetVersionExW(&osvi);
+    if (osvi.dwMajorVersion > 5) {
+        // The case of Vista/Server 2008: 0 and 1 means local, greater than 1 - remote.
+        return (0 != sessionId) && (1 != sessionId);
+    }
+    else if ((osvi.dwMajorVersion == 5) && (osvi.dwMinorVersion >= 1)) {
+        // The case of XP/Server 2003: 0 is local, another value means remote.
+        return (0 != sessionId);
+    }
+    else {
+        *exitTag = 2;
+        return FALSE;
+    }
+}

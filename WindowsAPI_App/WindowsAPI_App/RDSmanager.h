@@ -17,6 +17,7 @@ private:
 public:
 	EVT_HANDLE ConnectToRemote(LPWSTR lpwszRemote);
 	void EnumProviders(EVT_HANDLE hRemote);
+	BOOL IsRemote(DWORD pid, DWORD* exitTag, DWORD* lastErrorCode);
 
 };
 

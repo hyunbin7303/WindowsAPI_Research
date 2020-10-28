@@ -36,3 +36,9 @@ DWORD WindowsManager::find_process(const char* targetExeName, DWORD targetSessio
     CloseHandle(hSnap);
     return 0;
 }
+
+void WindowsManager::MakeProcess()
+{
+
+
+}

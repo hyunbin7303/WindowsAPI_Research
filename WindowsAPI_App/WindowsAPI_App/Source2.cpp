@@ -11,9 +11,8 @@
 #include <iostream>
 
 #pragma comment(lib, "wevtapi.lib")
-//typedef wchar_t WCHAR;
-EVT_HANDLE ConnectToRemote(LPWSTR lpwszRemote);
-void EnumProviders(EVT_HANDLE hRemote);
+
+
 LPWSTR ConvertString(const std::string& instr)
 {
     // Assumes std::string is encoded in the current Windows ANSI codepage
@@ -64,46 +63,28 @@ void testing()
     }
 }
 
-void Testing2()
+BOOL GetProcessId(LPCTSTR pProgExe, DWORD sessionId, DWORD *pPid)
 {
-
-}
-
-// Needs to test asap.
-static DWORD find_process(const char* targetExeName, DWORD targetSession)
-{
-    PROCESSENTRY32 pe32 = { 0 };
-
-    HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    if (hSnap == INVALID_HANDLE_VALUE) {
-        return 0;
-    }
-
-
-    //ProcessEntry32 : Describes an entry from a list of the processes residing in the system address space when a snapshot was taken.
-    pe32.dwSize = sizeof(PROCESSENTRY32);
-    if (!Process32First(hSnap, &pe32)) {
-        CloseHandle(hSnap);
-        return 0;
-    }
-
-    do
+    HANDLE hProcessSnap;
+    PROCESSENTRY32 pe32;
+    hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (hProcessSnap == INVALID_HANDLE_VALUE)
     {
-        if (_stricmp((const char *)pe32.szExeFile, targetExeName) == 0) {
-            DWORD sessId = 0;
-            if (ProcessIdToSessionId(pe32.th32ProcessID, &sessId)
-                && sessId == targetSession)
-            {
-                /* found target process */
-                CloseHandle(hSnap);
-                return pe32.th32ProcessID;
-            }
-        }
-    } while (Process32Next(hSnap, &pe32));
+        printError(TEXT)
+    }
+    //https://cpp.hotexamples.com/examples/-/-/ProcessIdToSessionId/cpp-processidtosessionid-function-examples.html
+    // Please review this.
+    // COpy some information from here! https://github.com/cginternals/cppfs
+    //https://stackoverflow.com/questions/5866129/rsa-encryption-problem-size-of-payload-data RSA encryption
 
-    CloseHandle(hSnap);
-    return 0;
 }
+//std::string currentUserUid()
+//{
+//    DWORD sessId = 0;
+//    ProcessIdToSessionId(GetCurrentProcessId(), &sessId);
+//    return tfm::format("%d", sessId);
+//}
+// Needs to test asap.
 
 static BOOL IsRemote(DWORD pid, DWORD* exitTag, DWORD* lastErrorCode) {
     DWORD sessionId;
@@ -154,71 +135,4 @@ cleanup:
         EvtClose(hRemote);
 }
 
-// Create a session conext for the remote computer. Set the 
-// Domain, User, and Password member to NULL to specify
-// the current user.
-EVT_HANDLE ConnectToRemote(LPWSTR lpwszRemote)
-{
-    EVT_HANDLE hRemote = NULL;
-    EVT_RPC_LOGIN Credentials;
 
-    RtlZeroMemory(&Credentials, sizeof(EVT_RPC_LOGIN));
-    /*
-    LPCWSTR is a pointer to a const string buffer. LPWSTR is a pointer to a non-const string buffer. 
-    Just create a new array of wchar_t and copy the contents of the LPCWSTR to it and use it in the function taking a LPWSTR.
-    */
-    Credentials.Server = lpwszRemote;
-    Credentials.Domain = NULL;
-    Credentials.User = NULL;
-    Credentials.Password = NULL;
-    Credentials.Flags = EvtRpcLoginAuthNegotiate;
-
-    // This call creates a remote session context; it does not actually
-    // create a connection to the remote computer. The connection to
-    // the remote computer happens when you use the context.
-    hRemote = EvtOpenSession(EvtRpcLogin, &Credentials, 0, 0);
-
-    SecureZeroMemory(&Credentials, sizeof(EVT_RPC_LOGIN));
-
-    return hRemote;
-}
-// Enumerate the registered providers on the computer.
-void EnumProviders(EVT_HANDLE hRemote)
-{
-    EVT_HANDLE hPublishers = NULL;
-    WCHAR wszPublisherName[255 + 1];
-    DWORD dwBufferUsed = 0;
-    DWORD status = ERROR_SUCCESS;
-
-    hPublishers = EvtOpenPublisherEnum(hRemote, 0);
-    if (NULL == hPublishers)
-    {
-        wprintf(L"EvtOpenPublisherEnum failed with %d\n", GetLastError());
-        goto cleanup;
-    }
-
-    while (true)
-    {
-        if (EvtNextPublisherId(hPublishers, sizeof(wszPublisherName) / sizeof(WCHAR), wszPublisherName, &dwBufferUsed))
-        {
-            wprintf(L"%s\n", wszPublisherName);
-        }
-        else
-        {
-            status = GetLastError();
-            if (ERROR_NO_MORE_ITEMS == status)
-            {
-                break;
-            }
-            else
-            {
-                wprintf(L"EvtNextPublisherId failed with 0x%ud\n", GetLastError());
-            }
-        }
-    }
-
-cleanup:
-
-    if (hPublishers)
-        EvtClose(hPublishers);
-}

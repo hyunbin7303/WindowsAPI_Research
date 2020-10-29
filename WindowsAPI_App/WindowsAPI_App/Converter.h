@@ -1,10 +1,10 @@
 #ifndef CONVERTER_H
 #define CONVERTER_H
-#ifdef UNICODE
-#define SetWindowText  SetWindowTextW
-#else
-#define SetWindowText  SetWindowTextA
-#endif 
+//#ifdef UNICODE
+//#define SetWindowText  SetWindowTextW
+//#else
+//#define SetWindowText  SetWindowTextA
+//#endif 
 #define BUFFER_SIZE 100
 #include <windows.h>
 #include <stdio.h>
@@ -24,8 +24,6 @@ public:
 
 };
 
-
-template <typename P>
 
 
 #endif // !CONVERTER_H

@@ -11,7 +11,6 @@ class WindowsManager
 {
 public:
 	static DWORD find_process(const char* targetExeName, DWORD targetSession);
-
 	//Testing method for Creating processes.
 	void MakeProcess();
 

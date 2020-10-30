@@ -19,7 +19,6 @@ namespace rds {
     namespace converter {
         class Converter
         {
-
             public:
                 static LPWSTR ConvertString(const std::string& instr);
                 std::wstring s2ws(const std::string& s);

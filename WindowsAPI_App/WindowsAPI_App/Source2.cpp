@@ -14,7 +14,11 @@ using namespace wm;
 
 int main(void)
 {
-
+	Converter convert;
+	convert.testing("Testing");
+	std::wstring check = convert.s2ws("Testing2");
+	//std::cout << check << std::endl;
+	return 0;
 }
 
 

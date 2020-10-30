@@ -186,3 +186,29 @@ void RDSmanager::printError(TCHAR* msg)
     _tprintf(TEXT("\n  WARNING: %s failed with error %d (%s)"), msg, eNum, sysMsg);
 
 }
+
+void RDSmanager::RemoteDesktopTesting()
+{
+    EVT_HANDLE hRemote = NULL;
+    LPWSTR pwsComputerName = Converter::ConvertString("Checking Remote computer");
+    //LPCSTR is defined as const char*, not const wchar_t*. Use LPCWSTR, or LPCTSTR with UNICODE defined.
+    // Enumerate the registered providers on the local computer.
+    wprintf(L"Registered providers on the local computer\n\n");
+
+    RDSmanager rdsManager;
+    rdsManager.EnumProviders(hRemote);
+    //EnumProviders(hRemote);
+    hRemote = rdsManager.ConnectToRemote(pwsComputerName);
+    if (NULL == hRemote)
+    {
+        wprintf(L"Failed to connect to remote computer. Error code is %d.\n", GetLastError());
+        goto cleanup;
+    }
+    // Enumerate the registered providers on the remote computer.To access a remote computer, the remote computer must enable 
+    // Remote Event Log Management as an exception in the firewall; otherwise, the remote call fails with RPC_S_SERVER_UNAVAILABLE.
+    wprintf(L"\n\nRegistered providers on the remote computer\n\n");
+    rdsManager.EnumProviders(hRemote);
+cleanup:
+    if (hRemote)
+        EvtClose(hRemote);
+}

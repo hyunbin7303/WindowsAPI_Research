@@ -1,7 +1,5 @@
 #include "WindowsManager.h"
 
-
-
 DWORD wm::WindowsManager::find_process(const char* targetExeName, DWORD targetSession)
 {
     PROCESSENTRY32 pe32 = { 0 };
@@ -36,13 +34,8 @@ void wm::WindowsManager::MakeProcess()
 {
     STARTUPINFO startInfo;
     PROCESS_INFORMATION proInfo;
-
     char buffer[256];
     //sprintf_s(buffer, "Checking Buffer%s", );
     //memset()
-
-
     
 }
-// note-----------
-// memory sharing between processes

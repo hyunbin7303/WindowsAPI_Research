@@ -2,7 +2,7 @@
 
 
 
-DWORD WindowsManager::find_process(const char* targetExeName, DWORD targetSession)
+DWORD wm::WindowsManager::find_process(const char* targetExeName, DWORD targetSession)
 {
     PROCESSENTRY32 pe32 = { 0 };
     HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -32,8 +32,7 @@ DWORD WindowsManager::find_process(const char* targetExeName, DWORD targetSessio
     CloseHandle(hSnap);
     return 0;
 }
-
-void WindowsManager::MakeProcess()
+void wm::WindowsManager::MakeProcess()
 {
     STARTUPINFO startInfo;
     PROCESS_INFORMATION proInfo;
@@ -45,6 +44,5 @@ void WindowsManager::MakeProcess()
 
     
 }
-
 // note-----------
 // memory sharing between processes

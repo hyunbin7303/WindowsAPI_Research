@@ -1,5 +1,7 @@
 #include "Converter.h"
-LPWSTR Converter::ConvertString(const std::string& instr)
+
+
+LPWSTR rds::converter::Converter::ConvertString(const std::string& instr)
 {
     // Assumes std::string is encoded in the current Windows ANSI codepage
     int bufferlen = ::MultiByteToWideChar(CP_ACP, 0, instr.c_str(), instr.size(), NULL, 0);
@@ -16,8 +18,7 @@ LPWSTR Converter::ConvertString(const std::string& instr)
     return widestr;
     //delete[] widestr;
 }
-
-std::wstring Converter::s2ws(const std::string& s)
+std::wstring rds::converter::Converter::s2ws(const std::string& s)
 {
     int len;
     int slength = (int)s.length() + 1;
@@ -27,4 +28,25 @@ std::wstring Converter::s2ws(const std::string& s)
     std::wstring r(buf);
     delete[] buf;
     return r;
+}
+void rds::converter::Converter::testing(const std::string& s)
+{
+    size_t   i;
+    char* pMBBuffer = (char*)malloc(BUFFER_SIZE);
+    const wchar_t* pWCBuffer = L"Hello, world.";
+    printf("Convert wide-character string:\n");
+    //Converts a sequence of wide characters to a corresponding sequence of multibyte characters.
+    wcstombs_s(&i, pMBBuffer, (size_t)BUFFER_SIZE,
+        pWCBuffer, (size_t)BUFFER_SIZE);
+
+    // Output
+    printf("   Characters converted: %u\n", i);
+    printf("    Multibyte character: %s\n\n",
+        pMBBuffer);
+
+    // Free multibyte character buffer
+    if (pMBBuffer)
+    {
+        free(pMBBuffer);
+    }
 }

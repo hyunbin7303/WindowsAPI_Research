@@ -11,18 +11,25 @@
 #include <winevt.h>
 #include <tlhelp32.h>
 #include <iostream>
-
 #include <memory>
 #include <vector>
 
-class Converter
-{
 
-public:
-	static LPWSTR ConvertString(const std::string& instr);
-	std::wstring s2ws(const std::string& s);
+namespace rds {
+    namespace converter {
+        class Converter
+        {
 
-};
+            public:
+                static LPWSTR ConvertString(const std::string& instr);
+                std::wstring s2ws(const std::string& s);
+                void testing(const std::string& s);
+        };
+
+
+    }
+}
+
 
 
 

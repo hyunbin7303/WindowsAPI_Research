@@ -1,7 +1,7 @@
 #include "Converter.h"
 
 
-LPWSTR rds::converter::Converter::ConvertString(const std::string& instr)
+LPWSTR rds::converter::Converter::stringToLPWSTR(const std::string& instr)
 {
     // Assumes std::string is encoded in the current Windows ANSI codepage
     int bufferlen = ::MultiByteToWideChar(CP_ACP, 0, instr.c_str(), instr.size(), NULL, 0);
@@ -18,14 +18,15 @@ LPWSTR rds::converter::Converter::ConvertString(const std::string& instr)
     return widestr;
     //delete[] widestr;
 }
-std::wstring rds::converter::Converter::s2ws(const std::string& s)
+std::wstring rds::converter::Converter::stringToWstring(const std::string& str)
 {
     int len;
-    int slength = (int)s.length() + 1;
-    len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+    int slength = (int)str.length() + 1;
+    len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), slength, 0, 0);
     wchar_t* buf = new wchar_t[len];
-    MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+    MultiByteToWideChar(CP_ACP, 0, str.c_str(), slength, buf, len);
     std::wstring r(buf);
+    std::wcout << r << std::endl;
     delete[] buf;
     return r;
 }

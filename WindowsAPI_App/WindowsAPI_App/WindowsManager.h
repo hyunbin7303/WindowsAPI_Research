@@ -54,10 +54,7 @@ namespace wm
             //https://cpp.hotexamples.com/examples/-/-/ProcessIdToSessionId/cpp-processidtosessionid-function-examples.html
             // Please review this.
             // COpy some information from here! https://github.com/cginternals/cppfs
-            //https://stackoverflow.com/questions/5866129/rsa-encryption-problem-size-of-payload-data RSA encryption
-
             return TRUE;
-
         }
     };
 }

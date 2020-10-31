@@ -190,7 +190,7 @@ void RDSmanager::printError(TCHAR* msg)
 void RDSmanager::RemoteDesktopTesting()
 {
     EVT_HANDLE hRemote = NULL;
-    LPWSTR pwsComputerName = Converter::ConvertString("Checking Remote computer");
+    LPWSTR pwsComputerName = Converter::stringToLPWSTR("Checking Remote computer");
     //LPCSTR is defined as const char*, not const wchar_t*. Use LPCWSTR, or LPCTSTR with UNICODE defined.
     // Enumerate the registered providers on the local computer.
     wprintf(L"Registered providers on the local computer\n\n");

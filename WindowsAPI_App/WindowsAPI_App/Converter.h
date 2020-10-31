@@ -14,14 +14,13 @@
 #include <memory>
 #include <vector>
 
-
 namespace rds {
     namespace converter {
         class Converter
         {
             public:
-                static LPWSTR ConvertString(const std::string& instr);
-                std::wstring s2ws(const std::string& s);
+                static LPWSTR stringToLPWSTR(const std::string& instr);
+                std::wstring stringToWstring(const std::string& str);
                 void testing(const std::string& s);
         };
 

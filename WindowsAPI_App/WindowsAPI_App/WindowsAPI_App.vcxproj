@@ -140,14 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Crypto.cpp" />
     <ClCompile Include="RDSmanager.cpp" />
+    <ClCompile Include="RegistryManager.cpp" />
     <ClCompile Include="Source2.cpp" />
     <ClCompile Include="STLContainer.cpp" />
     <ClCompile Include="WindowsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Converter.h" />
+    <ClInclude Include="Crypto.h" />
     <ClInclude Include="RDSmanager.h" />
+    <ClInclude Include="RegistryManager.h" />
     <ClInclude Include="STLContainer.h" />
     <ClInclude Include="WindowsManager.h" />
   </ItemGroup>

@@ -56,7 +56,11 @@ namespace wm
             // COpy some information from here! https://github.com/cginternals/cppfs
             return TRUE;
         }
+
+
     };
+
+
 }
 
 

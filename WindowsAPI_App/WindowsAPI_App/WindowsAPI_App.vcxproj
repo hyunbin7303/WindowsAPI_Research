@@ -153,6 +153,7 @@
     <ClInclude Include="RDSmanager.h" />
     <ClInclude Include="RegistryManager.h" />
     <ClInclude Include="STLContainer.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="WindowsManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

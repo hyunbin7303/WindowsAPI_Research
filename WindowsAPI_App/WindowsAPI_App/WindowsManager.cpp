@@ -39,3 +39,12 @@ void wm::WindowsManager::MakeProcess()
     //memset()
     
 }
+
+void wm::WindowsManager::DisplayToday()
+{
+    SYSTEMTIME st = { 0 };
+    wchar_t buf[128] = { 0 };
+    GetLocalTime(&st);
+    wsprintfW(buf, L"Today is %lu.%lu.%lu\n", st.wDay, st.wMonth, st.wYear);
+    wprintf(buf);
+}

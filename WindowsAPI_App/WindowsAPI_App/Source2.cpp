@@ -7,8 +7,11 @@
 #include "RDSmanager.h"
 #include "Converter.h"
 #include "WindowsManager.h"
-
+#include "RegistryManager.h"
 #include <wchar.h>
+#include <exception>
+#include <vector>
+
 #define BUF_LEN 25
 
 using namespace rds::converter;
@@ -17,22 +20,21 @@ using namespace wm;
 
 int main(void)
 {
+	WindowsManager winM;
+	winM.DisplayToday();
+
 	Converter convert;
 	convert.testing("Testing");
 	std::wstring check = convert.stringToWstring("Testing2");
 	LPWSTR value = convert.stringToLPWSTR("Testing");// 32-bit pointer to a string of 16-bit Unicode characters,
-    
-    
-    SYSTEMTIME st = { 0 };
-    wchar_t buf[128] = { 0 };
+	
 
-    GetLocalTime(&st);
-    wsprintfW(buf, L"Today is %lu.%lu.%lu\n", st.wDay,
-        st.wMonth, st.wYear);
+	RegistryManager rm;
+	rm.ReadRegistery("Hardware\\Description\\System\\CentralProcessor\\0", "ProcessorNameString", REG_SZ);
+	//rm.WriteRegistry("Hardware\\Description\\System\\CentralProcessor\\0", "NewValue", REG_SZ, "Content");
 
-    wprintf(buf);
-
-	//std::cout << check << std::endl;
+	
+	
 	return 0;
 }
 

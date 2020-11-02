@@ -32,3 +32,25 @@ https://docs.microsoft.com/en-us/windows/win32/termserv/terminal-services-admini
 
 
 
+
+
+
+### Others..
+
+#### Command u can use.
+
+* View remote desktop servicesTermServiceProcess PID
+```
+tasklist /svc | find "Ter"
+```
+
+* View the port used by the remote desktop
+```
+netstat -ano | find "[Number from Above]"
+```
+
+* View Registry.
+Start button -> enter registry.
+* Find HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TerminalServer\Wds\rdpwd\tds\tcp
+*  Find HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TerminalServer\WinStaions\RDP-Tcp
+

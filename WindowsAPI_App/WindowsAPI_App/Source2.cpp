@@ -20,17 +20,26 @@ using namespace wm;
 
 int main(void)
 {
+
+	// WindowsManager Testing
 	WindowsManager winM;
 	winM.DisplayToday();
+	//winM.GetProcessId(L"Testing", "", "");
+	//winM.find_process("", 1234);
+	winM.DisplayAllProcess();
+	//winM.testingSnapshot();
 
+	//Converter Testing
 	Converter convert;
 	convert.testing("Testing");
 	std::wstring check = convert.stringToWstring("Testing2");
 	LPWSTR value = convert.stringToLPWSTR("Testing");// 32-bit pointer to a string of 16-bit Unicode characters,
 	
 
-	RegistryManager rm;
-	rm.ReadRegistery("Hardware\\Description\\System\\CentralProcessor\\0", "ProcessorNameString", REG_SZ);
+
+	// RegistryManager Testing
+	rm::RegistryManager rManager;
+	std::wstring checkRegistry = rManager.ReadRegistery(L"Hardware\\Description\\System\\CentralProcessor\\0", L"ProcessorNameString", REG_SZ);
 	//rm.WriteRegistry("Hardware\\Description\\System\\CentralProcessor\\0", "NewValue", REG_SZ, "Content");
 
 	

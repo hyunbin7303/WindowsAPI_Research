@@ -7,8 +7,11 @@
 #include "RDSmanager.h"
 #include "Converter.h"
 #include "WindowsManager.h"
-
+#include "RegistryManager.h"
 #include <wchar.h>
+#include <exception>
+#include <vector>
+
 #define BUF_LEN 25
 
 using namespace rds::converter;
@@ -17,42 +20,30 @@ using namespace wm;
 
 int main(void)
 {
+
+	// WindowsManager Testing
+	WindowsManager winM;
+	winM.DisplayToday();
+	//winM.GetProcessId(L"Testing", "", "");
+	//winM.find_process("", 1234);
+	winM.DisplayAllProcess();
+	//winM.testingSnapshot();
+
+	//Converter Testing
 	Converter convert;
 	convert.testing("Testing");
 	std::wstring check = convert.stringToWstring("Testing2");
 	LPWSTR value = convert.stringToLPWSTR("Testing");// 32-bit pointer to a string of 16-bit Unicode characters,
-    
-    //wchar_t str1[] = L"There are 15 pines";
-    //wprintf(L"The length of the string is %ld characters\n", wcslen(str1));
-    //wchar_t buf[20];
-    //wcscpy(buf, L"Wuthering");
-    //wcscat(buf, L" heights\n");
-    //wprintf(buf);
-    //if (wcscmp(L"rain", L"rainy") == STR_EQUAL) {
+	
 
-    //    wprintf(L"rain and rainy are equal strings\n");
-    //}
-    //else {
 
-    //    wprintf(L"rain and rainy are not equal strings\n");
-    //}
+	// RegistryManager Testing
+	rm::RegistryManager rManager;
+	std::wstring checkRegistry = rManager.ReadRegistery(L"Hardware\\Description\\System\\CentralProcessor\\0", L"ProcessorNameString", REG_SZ);
+	//rm.WriteRegistry("Hardware\\Description\\System\\CentralProcessor\\0", "NewValue", REG_SZ, "Content");
 
-    //const int MAX_CHARS = 50;
-    //size_t count = wcsnlen_s(str1, MAX_CHARS); //wcsnlen_s() computes the lenght of a wide string
-    //int r = wcscpy_s(buf, BUF_LEN, L"W");
-   
-    
-    
-    SYSTEMTIME st = { 0 };
-    wchar_t buf[128] = { 0 };
-
-    GetLocalTime(&st);
-    wsprintfW(buf, L"Today is %lu.%lu.%lu\n", st.wDay,
-        st.wMonth, st.wYear);
-
-    wprintf(buf);
-
-	//std::cout << check << std::endl;
+	
+	
 	return 0;
 }
 

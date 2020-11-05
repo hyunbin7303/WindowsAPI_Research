@@ -7,7 +7,8 @@
 #include <tlhelp32.h>
 #include <iostream>
 #include <vector>
-
+#include <tchar.h>
+#include <psapi.h>
 namespace wm
 {
     class WindowsManager
@@ -56,7 +57,17 @@ namespace wm
             // COpy some information from here! https://github.com/cginternals/cppfs
             return TRUE;
         }
+        void DisplayToday();
+        void DisplayAllProcess();
+        
+        // From ms https://docs.microsoft.com/en-us/windows/win32/psapi/enumerating-all-processes
+        void PrintProcessNameAndID(DWORD processID);
+
+
+
     };
+
+
 }
 
 
